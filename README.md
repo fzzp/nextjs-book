@@ -165,3 +165,13 @@ npm i express dotenv cors bcryptjs cookie-parser jsonwebtoken
 ```
 
 当然一般都需要安装ts对应的类型，这个根据代码提示安装即可，例如：`npm i --save-dev @types/express`
+
+
+### 使用 better-sqlite3 操作数据库
+
+better-sqlite3 是同步的api，查询速度更快，支持事物... 看文档
+
+- 安装 `npm i better-sqlite3`
+- 查看 [文档](https://github.com/WiseLibs/better-sqlite3/tree/master/docs)
+- 查看 [Api](https://github.com/WiseLibs/better-sqlite3/blob/master/docs/api.md)
+

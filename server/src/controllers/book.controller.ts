@@ -4,6 +4,12 @@ class BookController {
     private bookRepo: BookRepo
     constructor(repo: BookRepo){
         this.bookRepo = repo
+
+        // 绑定this
+        this.listBooksHandler = this.listBooksHandler.bind(this)
+        this.searchBooksHandler = this.searchBooksHandler.bind(this)
+        this.getBookHandler = this.getBookHandler.bind(this)
+
     }
 
     async listBooksHandler(req: Request, res: Response) {
