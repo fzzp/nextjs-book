@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
+import BookRepo from "../dbrepo/book.repo.js";
 class BookController {
-    constructor(){}
+    private bookRepo: BookRepo
+    constructor(repo: BookRepo){
+        this.bookRepo = repo
+    }
 
     async listBooksHandler(req: Request, res: Response) {
         try {
