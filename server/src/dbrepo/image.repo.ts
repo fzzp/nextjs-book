@@ -22,6 +22,18 @@ class ImageRepo {
             throw error
         }
     }
+
+    get(filename: string){
+        try {
+            const stmt = this.db.prepare(
+                `select * from images where filename = ? limit 1`
+            )
+            const img = stmt.get(filename)
+            return img
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 export default ImageRepo

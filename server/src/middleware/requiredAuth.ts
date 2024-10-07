@@ -47,11 +47,18 @@ export const requiredAuth = async (req: Request & {userId: number}, res: Respons
         // 这里需要更详细地判断 jwt 错误，如：
         // JsonWebTokenError: jwt malformed      格式错误
         // JsonWebTokenError: invalid signature  签名错误，其实是密钥不对
+        // JsonWebTokenError: invalid token      令牌无效 
         if(String(error).includes("JsonWebTokenError: jwt malformed")) {
             res.status(401).json(clientError("token 格式错误"));
             return
         }
+        
         if(String(error).includes("JsonWebTokenError: invalid signature")) {
+            res.status(401).json(clientError("token 无效"));
+            return
+        }
+
+        if(String(error).includes("JsonWebTokenError: invalid token")) {
             res.status(401).json(clientError("token 无效"));
             return
         }

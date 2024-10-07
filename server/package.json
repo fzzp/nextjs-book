@@ -12,9 +12,12 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/better-sqlite3": "^7.6.11",
     "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "@types/express-fileupload": "^1.5.1",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.7.4",
     "nodemon": "^3.1.7",
@@ -28,6 +31,9 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
-    "jsonwebtoken": "^9.0.2"
+    "express-fileupload": "^1.5.1",
+    "jsonwebtoken": "^9.0.2",
+    "uninstall": "^0.0.0",
+    "uuid": "^10.0.0"
   }
 }
