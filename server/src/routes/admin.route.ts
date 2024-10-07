@@ -1,10 +1,9 @@
 import express from "express";
 import AdminController from "../controllers/admin.controller.js";
-import UserRepo from "../dbrepo/user.repo.js";
 import BookRepo from "../dbrepo/book.repo.js";
 
-function adminRouter(userRepo: UserRepo, bookRepo: BookRepo) {
-    const admin = new AdminController(userRepo, bookRepo)
+function adminRouter(bookRepo: BookRepo) {
+    const admin = new AdminController(bookRepo)
 
     // 使用子路由
     const router = express.Router();

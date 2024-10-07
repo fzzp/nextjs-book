@@ -19,8 +19,8 @@ class Book {
 
     checkBook() {
         const validator = new Validator()
-        validator.checkField(notBlank(this.author), "author", "作者不能为空")
         validator.checkField(notBlank(this.title), "title", "标题不能为空")
+        validator.checkField(notBlank(this.author), "author", "作者不能为空")
         validator.checkField(notBlank(this.description), "description", "描述不能为空")
         validator.checkField(notBlank(this.cover_pic), "cover_pic", "封面图不能为空")
         validator.checkField(this.price >= 0, "price", "价格必须大于等于0")

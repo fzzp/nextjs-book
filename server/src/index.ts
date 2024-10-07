@@ -61,7 +61,7 @@ app.use("/v1/books", bookRouter(bookRepo))
 app.use("/v1/auth", authRouter(userRepo))
 
 // 管理员操作接口
-app.use("/v1/admn", adminRouter(userRepo, bookRepo))
+app.use("/v1/admn", adminRouter(bookRepo))
 
 
 // =============== 图片上传与访问 ================ //

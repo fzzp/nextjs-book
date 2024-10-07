@@ -12,6 +12,10 @@ export const serverError: JsonResponse = {
     error: "服务内部错误，请稍后重试！"
 }
 
+export const bookNotExists: JsonResponse = {
+    error: "图书不存在"
+}
+
 // 客户端错误
 export const clientError = (error = "请求错误，请检查参数") => {
     return {
@@ -21,9 +25,16 @@ export const clientError = (error = "请求错误，请检查参数") => {
 
 // 验证错误
 export const errorReponse = (validator: Validator): JsonResponse => {
+    let one =  validator.oneError()
+    let errors = validator.errors()
+    if (Object.values(errors).length > 1) {
+        return {
+            error: one,
+            errors: errors
+        }
+    }
     return {
-        error: validator.oneError(),
-        errors: validator.errors()
+        error: one
     }
 }
 
