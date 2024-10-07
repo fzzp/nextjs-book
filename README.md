@@ -7,6 +7,74 @@
 首先从数据库设计来说就两个表，分别是用户表（users）和图书表（books），图片表（images）
 在这里采用数据库排老三的SQLite3单文件数据库来存储所有数据。
 
+## 运行项目
+
+优先启动 server api 再启动 client 客户端。
+
+### 启动 server (已完成)
+
+```bash
+cd server          # cd 到服务接口项目
+npm install        # 安装依赖
+sqlite3 db.sqlite  # 创建sqlite3数据库
+.read ./db.sql     # 执行sql生成表
+.q                 # 退出sqlite3
+npm run dev        # 启动服务
+```
+
+### 启动 client (看文档开发中ing)
+
+```bash
+cd client
+npm install
+npm run dev
+```
+ 
+
+## Next.js 笔记
+
+Next.js 组件和路由组件默认是 Server Component（服务组件），如果要使用 客户端组件需要在组件顶部加上`"use client"`指令.
+
+服务端组件默认在服务器上渲染一次，客户端组件在服务器渲染一次，然后在客户端在渲染一次。
+
+客户端组件渲染2次，是Next.js为了体验做了优化，在服务端渲染一下生成HTML返回，不至于已经来就是空白。 
+
+
+如何快速开发一个服务端组件，并且请求数据呢？加载页面是返回的是HTML结构。
+
+感觉开发一个SSR页面很简单~
+
+```ts
+async function getBooks() {
+  const res = await fetch("http://localhost:8901/v1/books")
+  if (!res.ok) {
+    throw new Error("请求数据失败")
+  }
+
+  return res.json()
+}
+
+// 返回HTML结构，实现服务端渲染数据
+export default async function Home() {
+  const { data } = await getBooks()
+  return (
+    <div>
+      {
+        data.map((item: any)=>(
+          <div key={item.id} style={{marginBottom: 20}}>
+            <p>{item.title}</p>
+            <p>{item.author}</p>
+            <p>{item.price}</p>
+          </div>
+        ))
+      }
+    </div>
+  );
+}
+```
+
+!(快速上手)[![alt text](./imgs/image.png)]
+
 ## 数据库设计
 
 为了简单，不过多设计字段

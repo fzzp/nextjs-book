@@ -41,7 +41,7 @@ app.use(cookieParser())
 
 // =============== 连接SQLite3 ================ //
 
-// 连接SQLite3,并在db.ts设置全局的 Connect
+// 连接SQLite3
 const db = openDb(process.env.DB_SOURCE)
 
 // 创建数据持久层
@@ -93,8 +93,7 @@ app.use("/api/uploadPic", requiredAuth, async (req: Request & { files: any }, re
             file = file.pop()
         }
 
-        console.log(file)
-        console.log("mimetype: ",file.mimetype)
+        // console.log(file)
 
         // 不是图片不支持
         if(!(file.mimetype as string || "").startsWith("image/")) {
@@ -105,10 +104,10 @@ app.use("/api/uploadPic", requiredAuth, async (req: Request & { files: any }, re
         // 从临时存放位置读取文件
         let buf = fs.readFileSync(file.tempFilePath)
 
-        let blod = Buffer.from(buf)
+        // let blod = Buffer.from(buf)
 
         // 创建 imageModel 对象
-        let img = NewImageModel(blod)
+        let img = NewImageModel(buf)
 
         // 存储 img 和 blod 到数据库
         let newID = imageRepo.insert(img)
