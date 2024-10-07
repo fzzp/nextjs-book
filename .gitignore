@@ -23,7 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-
+db.sqlite
 db.sqlite-*
 
 tmp
