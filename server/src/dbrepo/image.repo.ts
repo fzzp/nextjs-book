@@ -5,6 +5,10 @@ class ImageRepo {
     constructor(db: BetterSqlite3.Database) {
         this.db = db
     }
+
+    save(){
+        
+    }
 }
 
 export default ImageRepo

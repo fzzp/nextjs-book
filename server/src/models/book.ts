@@ -17,7 +17,7 @@ class Book {
        this.description = description
     }
 
-    checkUser() {
+    checkBook() {
         const validator = new Validator()
         validator.checkField(notBlank(this.author), "author", "作者不能为空")
         validator.checkField(notBlank(this.title), "title", "标题不能为空")

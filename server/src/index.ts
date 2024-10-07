@@ -9,6 +9,7 @@ import openDb from "./dbrepo/db.js";
 import UserRepo from "./dbrepo/user.repo.js";
 import BookRepo from "./dbrepo/book.repo.js";
 import ImageRepo from "./dbrepo/image.repo.js";
+import { setRepoForMiddleware } from "./middleware/context.js";
 
 // 加载 .env 配置环境变量
 dotenv.config()
@@ -36,6 +37,9 @@ const db = openDb(process.env.DB_SOURCE)
 const userRepo = new UserRepo(db)
 const bookRepo = new BookRepo(db)
 const imageRepo = new ImageRepo(db)
+
+// 设置 repo 提供 middleware 使用，或者重新创建repo实例也行
+setRepoForMiddleware(userRepo)
 
 // =============== 业务路由 ================ //
 
