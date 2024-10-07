@@ -1,4 +1,6 @@
 import BetterSqlite3 from 'better-sqlite3';
+import { ImageModel } from '../models/image.js';
+import { customDbError } from './error.js';
 
 class ImageRepo {
     private db: BetterSqlite3.Database
@@ -6,8 +8,19 @@ class ImageRepo {
         this.db = db
     }
 
-    save(){
-        
+    insert(img: ImageModel){
+        try {
+            const stmt = this.db.prepare(
+                `insert into images(filename, data) values(?,?)`
+            )
+            const res = stmt.run(img.filename, img.data)
+            if (res.lastInsertRowid <= 0) {
+                throw new Error(customDbError("添加失败"))
+            }
+            return res.lastInsertRowid
+        } catch (error) {
+            throw error
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users (
-    id integer not null primary key,
+    id integer not null primary key autoincrement,
     email text not null,
     password text not null,
     username text not null,
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS books (
-    id integer not null primary key,
+    id integer not null primary key autoincrement,
     title text not null,
     author text not null,
     -- price 价格，单位分
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS books (
 );
 
 CREATE TABLE IF NOT EXISTS images (
-    id integer not null primary key,
+    id integer not null primary key autoincrement,
     filename text not null,
     data blob not null
 ); 
