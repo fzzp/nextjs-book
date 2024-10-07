@@ -11,8 +11,8 @@ import openDb from "./dbrepo/db.js";
 import UserRepo from "./dbrepo/user.repo.js";
 import BookRepo from "./dbrepo/book.repo.js";
 import ImageRepo from "./dbrepo/image.repo.js";
-import { setRepoForMiddleware } from "./middleware/context.js";
-import { requiredAuth } from "./middleware/requiredAuth.js";
+import { setRepoForMiddleware, setUser } from "./middleware/context.js";
+import { requiredAdminRole, requiredAuth } from "./middleware/requiredAuth.js";
 import { clientError, serverError } from "./controllers/helper.js";
 
 import fs from "node:fs";
@@ -61,7 +61,7 @@ app.use("/v1/books", bookRouter(bookRepo))
 app.use("/v1/auth", authRouter(userRepo))
 
 // 管理员操作接口
-app.use("/v1/admn", adminRouter(bookRepo))
+app.use("/v1/admn", requiredAuth, setUser, requiredAdminRole, adminRouter(bookRepo))
 
 
 // =============== 图片上传与访问 ================ //
