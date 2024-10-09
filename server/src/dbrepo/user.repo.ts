@@ -8,10 +8,6 @@ class UserRepo {
         this.db = db
     }
 
-    tdb() {
-        return this.db
-    }
-
     insert(user: User) {
         try {
             const stmt = this.db.prepare(

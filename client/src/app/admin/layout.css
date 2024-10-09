@@ -1,0 +1,14 @@
+.admin-navbar {
+	.nav-link {
+		padding-top: .75rem;
+		padding-bottom: .75rem;
+		font-size: .875rem;
+		font-size: 18px;
+		color: #6c757d;
+	}
+
+	.nav-link.active {
+		font-weight: 500;
+		color: #0d6efd;
+	}
+}

@@ -39,6 +39,72 @@ Next.js 组件和路由组件默认是 Server Component（服务组件），如�
 
 客户端组件渲染2次，是Next.js为了体验做了优化，在服务端渲染一下生成HTML返回，不至于已经来就是空白。 
 
+服务端组件因为是在服务器是渲染的，因此服务端组件没有React上下文，也没有H5 AAPI等。
+
+而客户端组件就像单页面React应用组件一样，个人认为学习Next.js最快的方式，如果用服务端组件实现了，快速切换到客户端组件。
+开发好了需求，在优化，再寻求如何转换为服务端组件，带着问题去看文档，查解决方案是最快的学习方式。
+
+------
+
+layout 布局组件只渲染一次。
+
+template 模板每次都渲染。
+
+
+### 如何在服务端组件获取当前路由 pathname
+如果是客户端组件，获取 pathname 非常简单。
+
+```tsx
+import { usePathname } from 'next/navigation'
+export default function Home() {
+  const pathname = usePathname()
+}
+```
+
+但是在服务端组件这样写，会发生编译错误，因为 usePathname 仅在客户端组件生效。
+
+一种折中的方式，就是将使用pathname的地方抽取成一个客户端组件，但是一定符合所有场景。
+
+另一种行之有效的方式就是使用中间件，创建`src/middleware.ts`,具体实现方式，看此项目代码。
+
+- middleware.ts
+
+```tsx
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(request: NextRequest) {
+    // console.log("current pathname: ", request.nextUrl.pathname);
+    // 添加请求头
+    const headers = new Headers(request.headers);
+    headers.set("x-current-path", request.nextUrl.pathname);
+    // 传递下去
+    return NextResponse.next({ headers });
+}
+
+// 自定义匹配那些路由
+// export const config = {
+//     matcher: [
+//         "",
+//     ],
+// };
+```
+
+- 路由组件 取
+```tsx
+import { headers } from "next/headers";
+function Home({) {
+	const headerList = headers();
+	const pathname = headerList.get("x-current-path");
+	return (
+    <div>
+      {pathname}
+    </div>
+  )
+}
+```
+
+------
 
 如何快速开发一个服务端组件，并且请求数据呢？加载页面是返回的是HTML结构。
 

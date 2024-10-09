@@ -75,7 +75,7 @@ export const requiredAdminRole = async (req: Request & { user: User }, res: Resp
     try {
         let user = req.user
         if (!user) {
-            res.status(403).json(serverError);
+            res.status(500).json(serverError);
             return
         }
 

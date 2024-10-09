@@ -1,3 +1,5 @@
+import ClientNavbar from "@/components/ClientNavbar"
+
 async function getBooks() {
   const res = await fetch("http://localhost:8901/v1/books")
   if (!res.ok) {
@@ -12,15 +14,7 @@ export default async function Home() {
   const { data } = await getBooks()
   return (
     <div>
-      {
-        data.map((item: any)=>(
-          <div key={item.id} style={{marginBottom: 20}}>
-            <p>{item.title}</p>
-            <p>{item.author}</p>
-            <p>{item.price}</p>
-          </div>
-        ))
-      }
+      <ClientNavbar></ClientNavbar>
     </div>
   );
 }

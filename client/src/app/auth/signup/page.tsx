@@ -1,8 +1,13 @@
-import React from 'react'
+import type { Metadata } from "next";
+import AuthForm from '@/components/AuthForm';
 
-const SignUp = () => {
+export const metadata: Metadata = {
+  title: "Next.js 注册",
+  description: "学习 Next.js 的全栈项目",
+};
+const SignUp = async () => {
   return (
-    <div>SignUp</div>
+    <AuthForm formType='SIGNUP' />
   )
 }
 
