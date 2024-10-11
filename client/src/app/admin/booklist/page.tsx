@@ -1,7 +1,35 @@
-import React from 'react';
+"use client"
+
+import React, { useEffect, useState } from 'react';
+import { getAllBooks, delBookHandler } from '@/app/api';
+import { showPic } from '@/app/lib';
+import Link from 'next/link';
 
 // 管理员图书列表管理，负责新增/修改/删除/列表查询
-const AdminBook = async () => {
+const AdminBook = () => {
+  const [booksList, setBookList] = useState<any[]>([]);
+
+  const getTableData = () => {
+    getAllBooks().then(res => {
+      if (res.status === 200) {
+        setBookList(res.data)
+      }
+    })
+  }
+
+  const deleteBook = (id: number) => {
+    delBookHandler(id).then(res=>{
+      alert(res.error)
+      if(res.status === 200) {
+        getTableData()
+      }
+    })
+  }
+
+  useEffect(() => {
+    getTableData()
+  }, [])
+
   return (
     <div className="container py-3">
       <table className="table">
@@ -16,19 +44,26 @@ const AdminBook = async () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>
-              <img src="" alt="图书封面" />
-            </td>
-            <td>书名</td>
-            <td>作者</td>
-            <td>¥99.00</td>
-            <td>
-              <button type="button" className="btn btn-primary btn-sm">编辑</button>
-              <button type="button" className="btn btn-danger btn-sm ms-2">编辑</button>
-            </td>
-          </tr>
+          {
+            booksList.map((item, index) => (
+              <tr key={item.id}>
+                <th scope="row">{index + 1}</th>
+                <td>
+                  <img src={showPic(item.cover_pic)} width={60} height={60} alt="图书封面" />
+                </td>
+                <td>{item.title}</td>
+                <td>{item.author}</td>
+                <td>¥ {item.pirce}</td>
+                <td>
+                  <Link type="button" className="btn btn-primary btn-sm" href={`/admin/addbook?bookid=${item.id}`}>
+                    编辑
+                  </Link>
+                  <button type="button" className="btn btn-danger btn-sm ms-2" onClick={()=>deleteBook(item.id)}>删除</button>
+                </td>
+              </tr>
+            ))
+          }
+
         </tbody>
       </table>
     </div>
